@@ -1,0 +1,36 @@
+.bichart-chart-container .chart-page{
+	    line-height: 30px;
+    text-align: center;
+    margin: 8px 0;
+}
+.bichart-chart-container .page-container .chart-page a{
+    display: inline-block;
+    border-radius: 2px;
+    margin-right: 4px;
+    text-align: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(153,153,153,1);
+    line-height: 19px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.bichart-chart-container .chart-page a:hover{
+	color: rgba(51, 51, 51, 1);
+}
+.bichart-chart-container .chart-page a.chart-page-cur{
+	color: #fff;
+    background: #2196f3;
+    border-color: #2196f3;
+    cursor: default;
+}
+.bichart-chart-container .page-container .chart-page a.page-total{
+    border: none;
+    font-size: 12px;
+    padding:0 5px;
+    background: none;
+    color: #666;
+}
