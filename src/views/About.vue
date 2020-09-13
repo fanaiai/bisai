@@ -20,6 +20,10 @@
         <h3>资产类别分布情况</h3>
         <div id="zclb"></div>
       </div>
+      <div class="chart">
+        <h3>资产类别分布情况-分布</h3>
+        <div id="zclbbt"></div>
+      </div>
     </div>
     <div class="flex-div">
       <div class="chart">
@@ -289,13 +293,6 @@
                                     trigger: 'item',
                                     formatter: "{a} <br/>{b} : {c}%"
                                 },
-                                toolbox: {
-                                    feature: {
-                                        dataView: {readOnly: false},
-                                        restore: {},
-                                        saveAsImage: {}
-                                    }
-                                },
                                 legend: {
                                     data: ['展现','点击','访问','咨询','订单'],
                                     textStyle:{
@@ -349,6 +346,61 @@
                                         ]
                                     }
                                 ]
+                            };
+                            myChart.setOption(option);
+                            window.addEventListener("resize",function(){
+                                myChart.resize();
+                            })
+                        }
+                    })
+            },
+            getzclbbt(){
+                var that=this;
+                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                    .then(function(res){
+                        console.log(res)
+                        if(res.status==200){
+                            var myChart = echarts.init(document.getElementById("zclbbt"));
+                            var option =  {
+                                color:that.color,
+                                legend: {
+                                    textStyle:{
+                                        color:"#fff"
+                                    }
+                                },
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: "{a} <br/>{b} : {c}%"
+                                },
+                                legend: {
+                                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+                                    textStyle:{
+                                        color:"#fff"
+                                    }
+                                },
+
+                                series:[
+                                {
+                                    name: '访问来源',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    data: [
+                                        {value: 335, name: '直接访问'},
+                                        {value: 310, name: '邮件营销'},
+                                        {value: 234, name: '联盟广告'},
+                                        {value: 135, name: '视频广告'},
+                                        {value: 1548, name: '搜索引擎'}
+                                    ],
+                                    emphasis: {
+                                        itemStyle: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
                             };
                             myChart.setOption(option);
                             window.addEventListener("resize",function(){
