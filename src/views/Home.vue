@@ -653,13 +653,13 @@
             },
             initPage: function () {
                 var that = this
-                new Page($(this.$el).find('.page-container')[0], {
-                        goPage: function (p) {
-                            that.goPage(p)
-                        }
-                    }
-                    , that.pageInfo
-                )
+                // new Page($(this.$el).find('.page-container')[0], {
+                //         goPage: function (p) {
+                //             that.goPage(p)
+                //         }
+                //     }
+                //     , that.pageInfo
+                // )
             },
         }
     }
