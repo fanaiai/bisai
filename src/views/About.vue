@@ -67,7 +67,7 @@
             getszfxmysz(){
                 var that=this;
 
-                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                axios.get(domain+'/revenueExpenditure/query')
                     .then(function(res){
                         if(res.status==200){
                             var data1=[];
@@ -151,7 +151,7 @@
             },
             getszfxsgjf(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/public/query')
+                axios.get(domain+'/public/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){
@@ -221,7 +221,7 @@
             },
             getxmzc(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                axios.get(domain+'/revenueExpenditure/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){
@@ -277,7 +277,7 @@
             },
             getzclb(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/asset/query')
+                axios.get(domain+'/asset/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){
@@ -359,7 +359,7 @@
             },
             getzclbbt(res){
                 var that=this;
-                // axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                // axios.get(domain+'/revenueExpenditure/query')
                 //     .then(function(res){
                 //         console.log(res)
                 //         if(res.status==200){
@@ -416,7 +416,7 @@
             },
             getzcsy(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/assetuse/query')
+                axios.get(domain+'/assetuse/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){
@@ -538,7 +538,7 @@
             },
             getdb(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                axios.get(domain+'/revenueExpenditure/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){

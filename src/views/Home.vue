@@ -4,7 +4,7 @@
       <a class="btn">数据提取</a>
       <a class="btn" @click.stop="reCalc">数据修正</a>
 <!--      <a class="btn" id="upload">EXCEL导入</a>-->
-      <form action="http://10.2.21.85:8099/import/importExcel" method="post" enctype="multipart/form-data">
+      <form :action="domain+'/import/importExcel'" method="post" enctype="multipart/form-data">
         <input type="file" name="filename">
         <input type="submit" value="提交文件">
       </form>
@@ -405,6 +405,7 @@
         },
         data() {
             return {
+                domain:domain,
                 clist:[],
                 nums:[],
                 zhichucolumn: [],
@@ -471,7 +472,7 @@
         methods: {
             reCalc() {
                 var that = this;
-                axios.get('http://10.2.21.85:8099/competition/VNRecalculation')
+                axios.get(domain+'/competition/VNRecalculation')
                     .then(function (res) {
                         if(res.status==200){
                             that.recalcList=res.data.data;
@@ -495,7 +496,7 @@
             initUpload: function () {
                 var that = this;
                 var r = new Resumable({
-                    target: 'http://10.2.21.85:8099/import/importExcel',
+                    target: domain+'/import/importExcel',
                     chunkSize: 1 * 1024 * 1024,
                     simultaneousUploads: 4,
                     testChunks: false,
@@ -573,7 +574,7 @@
             getList0() {
                 var that = this;
                 that.list=[];
-                axios.get('http://10.2.21.85:8099/incomeExpensesForm/getIncomeData')
+                axios.get(domain+'/incomeExpensesForm/getIncomeData')
                     .then(function (res) {
                         console.log(res)
                         if (res.status == 200) {
@@ -604,7 +605,7 @@
             getList1() {
                 var that = this;
                 that.list=[];
-                axios.get('http://10.2.21.85:8099/projectexpend')
+                axios.get(domain+'/projectexpend')
                     .then(function (res) {
                         console.log(res)
                         if (res.status == 200) {
@@ -627,7 +628,7 @@
             getList2() {
                 var that = this;
                 that.list=[];
-                axios.get('http://10.2.21.85:8099/car/carInfo')
+                axios.get(domain+'/car/carInfo')
                     .then(function (res) {
                         console.log(res)
                         if (res.status == 200) {
@@ -639,7 +640,7 @@
             getList3() {
                 var that = this;
                 that.list=[];
-                axios.get('http://10.2.21.85:8099/fixasset/query')
+                axios.get(domain+'/fixasset/query')
                     .then(function (res) {
                         console.log(res)
                         if (res.status == 200) {
