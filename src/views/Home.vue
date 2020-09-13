@@ -460,12 +460,12 @@
             // this.initUpload();
             this.c=['C','D','E','F','G',"H",'I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
             this.clist=[];
-            for(let i=5;i<14;i++){
-                for(let j in c){
-                    this.clist.push(c[j]+i);
-                }
-            }
-            console.log(this.clist)
+            // for(let i=5;i<14;i++){
+            //     for(let j in c){
+            //         this.clist.push(c[j]+i);
+            //     }
+            // }
+            // console.log(this.clist)
             this.getList0();
         },
         methods: {
