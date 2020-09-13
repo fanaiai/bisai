@@ -3,7 +3,11 @@
     <div class="btns">
       <a class="btn">数据提取</a>
       <a class="btn" @click.stop="reCalc">数据修正</a>
-      <a class="btn" id="upload">EXCEL导入</a>
+<!--      <a class="btn" id="upload">EXCEL导入</a>-->
+      <form action="http://10.2.21.85:8099/import/importExcel" method="post" enctype="multipart/form-data">
+        <input type="file" name="filename">
+        <input type="submit" value="提交文件">
+      </form>
     </div>
     <div class="recalc">
       <p v-for="i in recalcList">{{i}}</p>
@@ -315,7 +319,7 @@
                 this.numList.push(i)
             }
 
-            this.initUpload();
+            // this.initUpload();
             this.getList0();
         },
         methods: {
@@ -454,7 +458,7 @@
             getList1() {
                 var that = this;
                 that.list=[];
-                axios.get('10.2.8.41:8099/projectexpend')
+                axios.get('http://10.2.8.41:8099/projectexpend')
                     .then(function (res) {
                         console.log(res)
                         if (res.status == 200) {
@@ -609,5 +613,9 @@
     display: inline-block;
     margin-right: 10px;
     cursor: pointer;
+  }
+  .btns{
+    display: flex;
+    align-items: center;
   }
 </style>
