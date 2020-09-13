@@ -86,7 +86,7 @@
                                     trigger: 'axis'
                                 },
                                 legend: {
-                                    data: ['最高气温', '最低气温'],
+                                    data: ['收入', '支出'],
                                     textStyle:{
                                         color:"#fff"
                                     }
@@ -131,12 +131,12 @@
                                 },
                                 series: [
                                     {
-                                        name: '最高气温',
+                                        name: '收入',
                                         type: 'line',
                                         data: data1,
                                     },
                                     {
-                                        name: '最低气温',
+                                        name: '支出',
                                         type: 'line',
                                         data: data2,
                                     }
