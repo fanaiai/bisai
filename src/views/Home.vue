@@ -2,12 +2,12 @@
   <div class="container bichart-chart-container">
     <div class="btns">
       <a class="btn">数据提取</a>
-      <a class="btn">数据修正</a>
+      <a class="btn" @click.stop="reCalc">数据修正</a>
       <a class="btn" id="upload">EXCEL导入</a>
     </div>
     <div class="tab">
       <ul>
-        <li v-for="(i,key) in tabList" :class="{on:i.value==tab}" :key="key" @click="tab=i.value">{{i.name}}</li>
+        <li v-for="(i,key) in tabList" :class="{on:i.value==tab}" :key="key" @click="changeTab(i)">{{i.name}}</li>
       </ul>
     </div>
     <div class="content">
@@ -34,54 +34,14 @@
             <th>决算数
             </th>
           </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
+          <tr v-for="(i,key) in list">
+            <td>{{i.CREDIT}}</td>
+            <td>{{key+1}}</td>
+            <td>{{i.DEBIT}}</td>
+            <td>{{i.SUBJECTCODE}}</td>
+            <td>{{key+1+list.length}}</td>
+            <td>{{i.MONEY}}</td>
           </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr><tr>
-          <td>fsf</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-        </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr>
-
         </table>
         </div>
         <div class="page-container"></div>
@@ -188,66 +148,18 @@
             <td>7</td>
             <td>8</td>
           </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
+          <tr v-for="(i,key) in list">
+            <td style="background: #efefef"></td>
+            <td>{{key+1}}</td>
+            <td>{{i.zicfl}}</td>
+            <td>{{i.billcode}}</td>
+            <td>{{i.cheph}}</td>
+            <td>{{i.jiaz}}</td>
+            <td>{{i.leijzj}}</td>
+            <td>{{i.jingz}}</td>
+            <td>{{i.syzk}}</td>
+            <td>{{i.clyt}}</td>
           </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr><tr>
-          <td>fsf</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-          <td>决算数</td>
-        </tr>
-          <tr>
-            <td>fsf</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-            <td>决算数</td>
-          </tr>
-
         </table>
         </div>
         <div class="page-container"></div>
@@ -393,10 +305,22 @@
       for(let i=1;i<25;i++){
         this.numList.push(i)
       }
-      this.initPage();
+
       this.initUpload();
+      this.getList0();
     },
     methods: {
+        reCalc(){
+            var that=this;
+            axios.get('http://10.2.21.85:8099/competition/VNRecalculation')
+                .then(function(res){
+
+                })
+        },
+        changeTab(i){
+            this.tab=i.value;
+            this['getList'+i.value]();
+        },
       updateFile: function () {
         var url = '/api/file/update/';
         that.$post(url, this.tableDetail)
@@ -485,12 +409,69 @@
           });
         }
       },
-      getList(){
-        axios.get('/')
+      getList0(){
+          var that=this;
+          axios.get('http://10.2.21.85:8099/incomeExpensesForm/getIncomeData')
           .then(function(res){
-
+              console.log(res)
+            if(res.status==200){
+                var a=[
+                    {
+                        "srkm":"科目1",
+                        "srjss":1111,
+                        "zcgn":"功能1",
+                        "zcjss":1122,
+                    },
+                    {
+                        "srkm":"科目1",
+                        "srjss":1111,
+                        "zcgn":"功能1",
+                        "zcjss":1122,
+                    },{
+                        "srkm":"科目1",
+                        "srjss":1111,
+                        "zcgn":"功能1",
+                        "zcjss":1122,
+                    }
+                  ]
+                that.list=res.data.data;
+                that.initPage();
+            }
           })
       },
+        getList1(){
+            var that=this;
+            axios.get('http://10.2.21.85:8099/car/carInfo')
+                .then(function(res){
+                    console.log(res)
+                    if(res.status==200){
+                        that.list=res.data.data;
+                        that.initPage();
+                    }
+                })
+        },
+        getList2(){
+            var that=this;
+            axios.get('http://10.2.21.85:8099/car/carInfo')
+                .then(function(res){
+                    console.log(res)
+                    if(res.status==200){
+                        that.list=res.data.data;
+                        that.initPage();
+                    }
+                })
+        },
+        getList3(){
+            var that=this;
+            axios.get('http://10.2.21.85:8099/car/carInfo')
+                .then(function(res){
+                    console.log(res)
+                    if(res.status==200){
+                        that.list=res.data.data;
+                        that.initPage();
+                    }
+                })
+        },
       goPage(p){
 
       },
@@ -545,6 +526,7 @@
     width: 90%;
     min-width: 1200px;
     margin: 0 auto;
+    margin-top: 40px;
   }
   .tab ul{
     list-style: none;
