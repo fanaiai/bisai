@@ -277,7 +277,7 @@
             },
             getzclb(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                axios.get('http://10.2.21.85:8099/asset/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){
@@ -291,10 +291,11 @@
                                 },
                                 tooltip: {
                                     trigger: 'item',
-                                    formatter: "{a} <br/>{b} : {c}%"
+                                    formatter: "{a} <br/>{b} : {c}"
                                 },
                                 legend: {
-                                    data: ['展现','点击','访问','咨询','订单'],
+                                    show:false,
+                                    // data: ['book','点击','访问','咨询','订单'],
                                     textStyle:{
                                         color:"#fff"
                                     }
@@ -305,15 +306,15 @@
                                         name:'漏斗图',
                                         type:'funnel',
                                         left: '10%',
-                                        top: 60,
+                                        top: 30,
                                         //x2: 80,
                                         bottom: 60,
                                         width: '80%',
                                         // height: {totalHeight} - y - y2,
-                                        min: 0,
-                                        max: 100,
-                                        minSize: '0%',
-                                        maxSize: '100%',
+                                        // min: 0,
+                                        // max: 100,
+                                        // minSize: '0',
+                                        // maxSize: '100',
                                         sort: 'descending',
                                         gap: 2,
                                         label: {
@@ -338,11 +339,12 @@
                                             }
                                         },
                                         data: [
-                                            {value: 60, name: '访问'},
-                                            {value: 40, name: '咨询'},
-                                            {value: 20, name: '订单'},
-                                            {value: 80, name: '点击'},
-                                            {value: 100, name: '展现'}
+                                            {value: parseFloat(res.data.data.book), name: 'book'},
+                                            {value: parseFloat(res.data.data.cul), name: 'cul'},
+                                            {value: parseFloat(res.data.data.land), name: 'land'},
+                                            {value: parseFloat(res.data.data.live), name: 'live'},
+                                            {value: parseFloat(res.data.data.privatedivice), name: 'privatedivice'},
+                                            {value:parseFloat( res.data.data.publicdivice), name: 'publicdivice'}
                                         ]
                                     }
                                 ]
@@ -351,15 +353,16 @@
                             window.addEventListener("resize",function(){
                                 myChart.resize();
                             })
+                            that.getzclbbt(res)
                         }
                     })
             },
-            getzclbbt(){
+            getzclbbt(res){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
-                    .then(function(res){
-                        console.log(res)
-                        if(res.status==200){
+                // axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                //     .then(function(res){
+                //         console.log(res)
+                //         if(res.status==200){
                             var myChart = echarts.init(document.getElementById("zclbbt"));
                             var option =  {
                                 color:that.color,
@@ -373,7 +376,8 @@
                                     formatter: "{a} <br/>{b} : {c}%"
                                 },
                                 legend: {
-                                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+                                    show:false,
+                                    // data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
                                     textStyle:{
                                         color:"#fff"
                                     }
@@ -381,16 +385,17 @@
 
                                 series:[
                                 {
-                                    name: '访问来源',
+                                    name: '分布',
                                     type: 'pie',
                                     radius: '55%',
-                                    center: ['50%', '60%'],
+                                    center: ['50%', '50%'],
                                     data: [
-                                        {value: 335, name: '直接访问'},
-                                        {value: 310, name: '邮件营销'},
-                                        {value: 234, name: '联盟广告'},
-                                        {value: 135, name: '视频广告'},
-                                        {value: 1548, name: '搜索引擎'}
+                                        {value: parseFloat(res.data.data.book), name: 'book'},
+                                        {value: parseFloat(res.data.data.cul), name: 'cul'},
+                                        {value: parseFloat(res.data.data.land), name: 'land'},
+                                        {value: parseFloat(res.data.data.live), name: 'live'},
+                                        {value: parseFloat(res.data.data.privatedivice), name: 'privatedivice'},
+                                        {value:parseFloat( res.data.data.publicdivice), name: 'publicdivice'}
                                     ],
                                     emphasis: {
                                         itemStyle: {
@@ -406,12 +411,12 @@
                             window.addEventListener("resize",function(){
                                 myChart.resize();
                             })
-                        }
-                    })
+                        // }
+                    // })
             },
             getzcsy(){
                 var that=this;
-                axios.get('http://10.2.21.85:8099/revenueExpenditure/query')
+                axios.get('http://10.2.21.85:8099/assetuse/query')
                     .then(function(res){
                         console.log(res)
                         if(res.status==200){
@@ -430,7 +435,8 @@
                                     }
                                 },
                                 legend: {
-                                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+                                    show:false,
+                                    // data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
                                     textStyle:{
                                         color:"#fff"
                                     }
@@ -439,6 +445,7 @@
                                     left: '3%',
                                     right: '4%',
                                     bottom: '3%',
+                                    top:'1%',
                                     containLabel: true
                                 },
                                 xAxis: {
@@ -477,59 +484,49 @@
                                         }
                                     },
                                     type: 'category',
-                                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                                    data: ['l5', 'p5', 't5', 'x5']
                                 },
                                 series: [
                                     {
-                                        name: '直接访问',
+                                        name: '使用',
                                         type: 'bar',
                                         stack: '总量',
                                         label: {
                                             show: true,
                                             position: 'insideRight'
                                         },
-                                        data: [320, 302, 301, 334, 390, 330, 320]
+                                        data: [res.data.data.l5,res.data.data.p5,res.data.data.t5,res.data.data.x5]
                                     },
-                                    {
-                                        name: '邮件营销',
-                                        type: 'bar',
-                                        stack: '总量',
-                                        label: {
-                                            show: true,
-                                            position: 'insideRight'
-                                        },
-                                        data: [120, 132, 101, 134, 90, 230, 210]
-                                    },
-                                    {
-                                        name: '联盟广告',
-                                        type: 'bar',
-                                        stack: '总量',
-                                        label: {
-                                            show: true,
-                                            position: 'insideRight'
-                                        },
-                                        data: [220, 182, 191, 234, 290, 330, 310]
-                                    },
-                                    {
-                                        name: '视频广告',
-                                        type: 'bar',
-                                        stack: '总量',
-                                        label: {
-                                            show: true,
-                                            position: 'insideRight'
-                                        },
-                                        data: [150, 212, 201, 154, 190, 330, 410]
-                                    },
-                                    {
-                                        name: '搜索引擎',
-                                        type: 'bar',
-                                        stack: '总量',
-                                        label: {
-                                            show: true,
-                                            position: 'insideRight'
-                                        },
-                                        data: [820, 832, 901, 934, 1290, 1330, 1320]
-                                    }
+                                    // {
+                                    //     name: '邮件营销',
+                                    //     type: 'bar',
+                                    //     stack: '总量',
+                                    //     label: {
+                                    //         show: true,
+                                    //         position: 'insideRight'
+                                    //     },
+                                    //     data: [res.data.data.p5]
+                                    // },
+                                    // {
+                                    //     name: '联盟广告',
+                                    //     type: 'bar',
+                                    //     stack: '总量',
+                                    //     label: {
+                                    //         show: true,
+                                    //         position: 'insideRight'
+                                    //     },
+                                    //     data: [res.data.data.t5]
+                                    // },
+                                    // {
+                                    //     name: '视频广告',
+                                    //     type: 'bar',
+                                    //     stack: '总量',
+                                    //     label: {
+                                    //         show: true,
+                                    //         position: 'insideRight'
+                                    //     },
+                                    //     data: [res.data.data.x5]
+                                    // },
                                 ]
                             };
                             myChart.setOption(option);
@@ -659,7 +656,7 @@
     padding:20px;
   }
   .chart >div{
-    height: 380px;
+    height: 370px;
     width: 100%;
   }
 </style>
