@@ -158,6 +158,7 @@
                             var myChart = echarts.init(document.getElementById("szfx-sgjf"));
                             var data=res.data.data;
                             data.a='分类'
+
                             var option =  {
                                 color:that.color,
                                 title: {
@@ -166,12 +167,12 @@
                                 tooltip: {
                                     trigger: 'axis'
                                 },
-                                dataset: {
-                                    dimensions: ['a','official', 'overseasTrips', 'publicrun'],
-                                    source: [
-                                        data
-                                    ]
-                                },
+                                // dataset: {
+                                //     dimensions: ['a','公务车购置及运行费', '因公出国（境）费用', '公务接待费'],
+                                //     source: [
+                                //         data
+                                //     ]
+                                // },
                                 legend: {
                                     textStyle:{
                                         color:"#fff"
@@ -186,7 +187,9 @@
                                             type: 'dashed',
                                             color:'rgba(219, 219, 219, 0.4)'
                                         }
-                                    },},
+                                    },
+                                  data:['资金类型']
+                                },
                                 yAxis: {
                                     axisLabel:{color:'#fff'},
                                     axisLine:{
@@ -207,9 +210,9 @@
                                 // Declare several bar series, each will be mapped
                                 // to a column of dataset.source by default.
                                 series: [
-                                    {type: 'bar'},
-                                    {type: 'bar'},
-                                    {type: 'bar'}
+                                    {type: 'bar',data:[data.publicrun],'name':'公务车购置及运行费'},
+                                    {type: 'bar',data:[data.overseasTrips],'name':'因公出国（境）费用'},
+                                    {type: 'bar',data:[data.official],'name':'公务接待费'}
                                 ]
                             };
                             myChart.setOption(option);
@@ -300,10 +303,13 @@
                                         color:"#fff"
                                     }
                                 },
-
+                              label:{
+                                color:'#fff',
+                                fontSize:14
+                              },
                                 series: [
                                     {
-                                        name:'漏斗图',
+                                        name:'资产类别分布情况',
                                         type:'funnel',
                                         left: '10%',
                                         top: 30,
@@ -339,12 +345,12 @@
                                             }
                                         },
                                         data: [
-                                            {value: parseFloat(res.data.data.book), name: 'book'},
-                                            {value: parseFloat(res.data.data.cul), name: 'cul'},
-                                            {value: parseFloat(res.data.data.land), name: 'land'},
-                                            {value: parseFloat(res.data.data.live), name: 'live'},
-                                            {value: parseFloat(res.data.data.privatedivice), name: 'privatedivice'},
-                                            {value:parseFloat( res.data.data.publicdivice), name: 'publicdivice'}
+                                            {value: parseFloat(res.data.data.book), name: '图书档案'},
+                                            {value: parseFloat(res.data.data.cul), name: '文物和陈列品'},
+                                            {value: parseFloat(res.data.data.land), name: '土地、房屋及构筑物'},
+                                            {value: parseFloat(res.data.data.live), name: '家具、用具、装具及动植物'},
+                                            {value: parseFloat(res.data.data.privatedivice), name: '专用设备'},
+                                            {value:parseFloat( res.data.data.publicdivice), name: '通用设备'}
                                         ]
                                     }
                                 ]
@@ -382,7 +388,10 @@
                                         color:"#fff"
                                     }
                                 },
-
+                              label:{
+                                color:'#fff',
+                                fontSize:14
+                              },
                                 series:[
                                 {
                                     name: '分布',
@@ -390,12 +399,12 @@
                                     radius: '55%',
                                     center: ['50%', '50%'],
                                     data: [
-                                        {value: parseFloat(res.data.data.book), name: 'book'},
-                                        {value: parseFloat(res.data.data.cul), name: 'cul'},
-                                        {value: parseFloat(res.data.data.land), name: 'land'},
-                                        {value: parseFloat(res.data.data.live), name: 'live'},
-                                        {value: parseFloat(res.data.data.privatedivice), name: 'privatedivice'},
-                                        {value:parseFloat( res.data.data.publicdivice), name: 'publicdivice'}
+                                      {value: parseFloat(res.data.data.book), name: '图书档案'},
+                                      {value: parseFloat(res.data.data.cul), name: '文物和陈列品'},
+                                      {value: parseFloat(res.data.data.land), name: '土地、房屋及构筑物'},
+                                      {value: parseFloat(res.data.data.live), name: '家具、用具、装具及动植物'},
+                                      {value: parseFloat(res.data.data.privatedivice), name: '专用设备'},
+                                      {value:parseFloat( res.data.data.publicdivice), name: '通用设备'}
                                     ],
                                     emphasis: {
                                         itemStyle: {
@@ -484,7 +493,7 @@
                                         }
                                     },
                                     type: 'category',
-                                    data: ['l5', 'p5', 't5', 'x5']
+                                    data: ['在用', '出租借', '闲置', '待处置（待报废、毁损等）']
                                 },
                                 series: [
                                     {

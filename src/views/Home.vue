@@ -1,7 +1,7 @@
 <template>
   <div class="container bichart-chart-container">
     <div class="btns">
-      <a class="btn">数据提取</a>
+      <a class="btn" @click="changeTab({value:0})">数据提取</a>
       <a class="btn" @click.stop="reCalc">数据修正</a>
 <!--      <a class="btn" id="upload">EXCEL导入</a>-->
       <form :action="domain+'/import/importExcel'" method="post" enctype="multipart/form-data">
